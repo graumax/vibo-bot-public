@@ -1,0 +1,16 @@
+name: ntfy Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testnachricht senden
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          curl -s -H "Title: Testnachricht" -H "Tags: white_check_mark" \
+            -d "Test von ${GITHUB_REPOSITORY} – die Verbindung funktioniert." \
+            "https://ntfy.sh/${NTFY_TOPIC}"
